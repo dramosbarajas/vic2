@@ -1,0 +1,22 @@
+<%- layout ('layout/main') %>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-header">
+                    Bienvenido
+                    <%= user.email %>
+
+                </div>
+                <div class="card-body">
+                    <p>Correo Electrónico:
+                        <%= user.email %>
+                    </p>
+                    <p>ID Usuario:
+                        <%= user._id %>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
