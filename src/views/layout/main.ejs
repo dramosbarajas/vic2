@@ -11,7 +11,7 @@
 
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <a class="navbar-brand" href="#">Autenticación Node.js</a>
+    <a class="navbar-brand" href="app">Autenticación Node.js</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01"
       aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -21,9 +21,6 @@
         <% if(!user) {%>
         <li class="nav-item">
           <a class="nav-link" href="/signin">Iniciar Sesión </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/signup">Registro</a>
         </li>
         <% } else {%>
         <li class="nav-item">
@@ -52,7 +49,8 @@
 
 
 </body>
-<script src="js/jquery3.3.1.js"></script>
+<script   src="https://code.jquery.com/jquery-3.3.1.js"   integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="   crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
 <script src="js/main.js"></script>
 <script src="js/validator.js"></script>
 </html>

@@ -4,17 +4,35 @@
         <div class="col-md-8 offset-md-2">
             <div class="card">
                 <div class="card-header">
-                    Bienvenido
-                    <%= user.email %>
-
+                    <h5>
+                    Datos de usuario.
+                    </h5>
                 </div>
                 <div class="card-body">
+                    <p>Edite sus datos de usuario:</p>
+                        <% if (user.avatar == "no_avatar") { %>
+                        <p>AVATAR: Avatar no disponible</p>
+                        <% } else { %>
+                        <img src="user.avatar" alt="avatar">
+                        <% } %>
                     <p>Correo Electrónico:
                         <%= user.email %>
-                    </p>
-                    <p>ID Usuario:
-                        <%= user._id %>
-                    </p>
+                        <% if (user.nombre == "") { %>
+                            <p>No existen datos, por favor actualice sus datos</p>
+                        <% } else { %>
+                        <p>Nombre:
+                            <%= user.nombre %></p>
+                        <% } %>
+                    <% if (user.apellido == "") { %>
+                        <p>Apellido: No existen datos, por favor actualice sus datos</p>
+                    <% } else { %>
+                        <p>Apellido:
+                            <%= user.apellido %>
+                        </p>
+                    <% } %>
+                <div class="float-lg-right">
+                    <button class="btn btn-primary" id="showModalEditUser" data-userid= <%= user._id %> >Actualizar datos</button>
+                </div>
                 </div>
             </div>
         </div>

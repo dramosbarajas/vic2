@@ -2,14 +2,16 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt-nodejs');
 const { Schema } = mongoose;
 
-let rolStatus : enum ['Admin_Role', 'User_Role'];
+
 const userSchema = new Schema({
     email : { type: String, lowercase: true, unique: true, required : true},
-    password : { String : true, required : true },
-    nombre : { type: String, trim: true },
-    apellido : { type: String, trim: true},
-    avatar : { type : String, trim : true},
-    passChanged : boolean,
+    password : { type : String , required : true },
+    nombre : { type: String, trim: true , default : ""},
+    apellido : { type: String, trim: true, default : ""},
+    avatar : { type : String, trim : true, default: "no_avatar"},
+    passChanged : {type : Boolean , default: false},
+    rol: { type : String, enum : ['Admin_Role', 'User_Role'], default:"User_Role"},
+    active : { type : Boolean, default: true}
 }, { timestamps: { createdAt: 'created_at', updatedAt: 'updatedAt' }});
 
 userSchema.methods.encryptPassword = (password) => {

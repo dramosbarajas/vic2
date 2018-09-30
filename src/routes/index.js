@@ -11,7 +11,7 @@ const router =  express.Router();
 const passport = require('passport');
 
 router.get('/',(req, res, next) => {
-    res.render('index');
+    res.render('signin');
 });
 
 router.get('/signup',(req, res, next) => {
@@ -30,13 +30,17 @@ router.get('/signin',(req, res, next) => {
 });
 
 router.post('/signin', passport.authenticate('local-signin', {
-    successRedirect : '/profile',
+    successRedirect : '/app',
     failureRedirect : '/signin',
     passReqToCallback : true,
 }));
 
 router.get('/profile', isAuthenticated ,(req, res, next) => {
     res.render('profile');
+});
+
+router.get('/app', isAuthenticated ,(req, res, next) => {
+    res.render('app');
 });
 
 router.get('/logout', isAuthenticated ,(req, res, next) => {

@@ -7,5 +7,10 @@ $(document).ready(function (){
         if(!$('#emailFieldSignIn').hasClass('is-invalid') && !$('#passwordFieldSignIn').hasClass('is-invalid')){
            $('#formSignIn').submit();
         }
-    });         
+    });
+
+    $('#showModalEditUser').on('click', (e) => {
+        console.log('teclings');
+    })
 });
+
