@@ -1,4 +1,6 @@
 $(document).ready(function (){
+
+
 //Click
     $('#submitFormSignIn').on('click', (e)=>{
         e.preventDefault();
@@ -8,9 +10,34 @@ $(document).ready(function (){
            $('#formSignIn').submit();
         }
     });
+    $('#eventEditModalForm').on('click', (e) => {
+        isEmpty('nombreEditUserForm');
+        isEmpty('apellidoEditUserForm');
+        if(!$('#nombreEditUserForm').hasClass('is-invalid') && !$('#apellidoEditUserForm').hasClass('is-invalid')){
+            //Peticion Ajax para actualizar los datos.
+            var settings = {
+                "async": true,
+                "crossDomain": true,
+                "url": "/profile/editProfile",
+                'withCredentials':true,
+                "method": "PUT",
+                "headers": {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                    "Cache-Control": "no-cache",
+                },
+                "data": {
+                    id : $( '#eventEditModalForm' ).data( 'userid'),
+                    nombre : $('#nombreEditUserForm').val(),
+                    apellido : $('#apellidoEditUserForm').val(),
+                }
+            };
 
-    $('#showModalEditUser').on('click', (e) => {
-        console.log('teclings');
+            $.ajax(settings).done(function (response) {
+                console.log(response);
+            });
+
+        }
     })
+
 });
 

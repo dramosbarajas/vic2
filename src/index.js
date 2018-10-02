@@ -26,9 +26,10 @@ app.engine('ejs',engine);
 app.set('view engine', 'ejs');
 app.set('port', process.env.port || 3000);
 
+
 // Middlewares 
 app.use(logger('dev'));
-app.use(express.urlencoded({extended:false}))
+app.use(express.urlencoded({extended:false}));
 app.use(session({
     secret: 'stringSecret',
     resave: false,
@@ -38,7 +39,7 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname + '/public')));
-
+app.use(express.urlencoded({ extended: false }));
 app.use((req,res,next) => {
     app.locals.signupMessage = req.flash('signupMessage');
     app.locals.signinMessage = req.flash('signinMessage');
@@ -48,6 +49,7 @@ app.use((req,res,next) => {
 
 //Routes
 app.use(require('./routes/index'));
+app.use(require('./routes/profile'));
 
 //Starting the server
 app.listen(app.get('port'), () =>{

@@ -47,6 +47,7 @@ router.get('/logout', isAuthenticated ,(req, res, next) => {
     req.logout();
     res.redirect('/');
 });
+
 function isAuthenticated(req, res, next ){
     if(req.isAuthenticated()){
         return next();
