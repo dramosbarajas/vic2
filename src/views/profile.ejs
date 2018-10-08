@@ -10,34 +10,42 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-4">
-                            <% if (user.avatar == "no_avatar") { %>
-                                <img src="/img/avatar.png" alt="avatar">
+                        <div class="col-md-6 offset-md-5 col-xs-10 offset-xs-6">
+                            <% if (userLogged.avatar == "no_avatar") { %>
+                                <img src="/img/avatar.png" alt="avatar" id="fotoAvatar">
                             <% } else { %>
-                                <img src="user.avatar" alt="avatar">
+                                <img src="userLogged.avatar" alt="avatar" id="fotoAvatar">
                             <% } %>
-                        </div>
-                        <div class="col-md-8">
-                            <p><b>Correo Electrónico </b><%= user.email %>
-                            <p><b>Nombre </b>
-                                    <% if (user.nombre == "") { %>
-                            No existen datos, por favor actualice sus datos
-                            <% } else { %>
-
-                                    <%= user.nombre %>
-                            <% } %>
-                            </p>
-                            <p><b>Apellidos </b>
-                            <% if (user.apellido == "") { %>
-                                No existen datos, por favor actualice sus datos
-                            <% } else { %>
-                                    <%= user.apellido %>
-                            <% } %>
-                            </p>
                         </div>
                     </div>
-                <div class="float-lg-right">
-                    <button class="btn btn-primary" id="showModalEditUser" data-userid= <%= user._id %> data-toggle="modal" data-target="#EditUserModal" >Actualizar datos</button>
+                        <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <div class="form-group">
+                                <p class="text-center h5">Correo Electrónico</p>
+                                <input type="text" class="form-control-plaintext text-center h6" id="emailEditUserForm" value="<%= userLogged.email%>"readonly>
+                            </div>
+                            <div class="form-group">
+                                <p class="text-center h5">Nombre</p>
+                                <% if (userLogged.apellido == "") { %>
+                                    <p class="text-center">No existen datos, por favor actualice sus datos.</p>
+                                <% } else { %>
+                                    <input type="text" class="form-control-plaintext text-center h6" id="nombreViewUserForm" value="<%= userLogged.nombre%>" readonly>
+                                <% } %>
+                            </div>
+                            <div class="form-group">
+                                <p class="text-center h5">Apellidos</p>
+                                <% if (userLogged.apellido == "") { %>
+                                    <p class="text-center">No existen datos, por favor actualice sus datos.</p>
+                                <% } else { %>
+                                <input type="text" class="form-control-plaintext text-center h6" id="apellidoViewUserForm" value="<%= userLogged.apellido%>" readonly>
+                                <% } %>
+                            </div>
+                        </div>
+                    </div>
+                <div class="row">
+                    <div class="col-sm-6 offset-sm-3 col-xs-12">
+                    <button class="btn btn-primary btn-block" id="showModalEditUser" data-userid= <%= userLogged._id %> data-toggle="modal" data-target="#EditUserModal" >Actualizar datos</button>
+                    </div>
                 </div>
                     <!-- The Modal -->
                     <div class="modal fade" id="EditUserModal">
@@ -58,12 +66,12 @@
                                                 <div class="col-md-8 offset-md-2">
                                                     <div class="form-group">
                                                         <label for="email">Nombre <b>*</b></label>
-                                                        <input type="text" class="form-control" id="nombreEditUserForm" value="<%= user.nombre%>">
+                                                        <input type="text" class="form-control" id="nombreEditUserForm" value="<%= userLogged.nombre%>">
                                                         <div id="nombreEditUserFormError" class="errorField"></div>
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="email">Apellidos <b>*</b></label>
-                                                        <input type="email" class="form-control" id="apellidoEditUserForm" value="<%= user.apellido%>">
+                                                        <input type="email" class="form-control" id="apellidoEditUserForm" value="<%= userLogged.apellido%>">
                                                         <div id="apellidoEditUserFormError" class="errorField"></div>
                                                     </div>
                                                     <div class="form-group">
@@ -77,7 +85,7 @@
                                 </form>
                                 <!-- Modal footer -->
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-success" id="eventEditModalForm" data-userid= <%= user._id %>>Actualizar</button>
+                                    <button type="button" class="btn btn-success" id="eventEditModalForm" data-userid= <%= userLogged._id %>>Actualizar</button>
                                 </div>
                             </div>
                         </div>

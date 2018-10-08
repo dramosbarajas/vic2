@@ -33,7 +33,12 @@ $(document).ready(function (){
             };
 
             $.ajax(settings).done(function (response) {
-                console.log(response);
+                if(response.status = 200){
+                    console.log(response.usuario.nombre);
+                    $('#apellidoViewUserForm').val(response.usuario.apellido);
+                    $('#nombreViewUserForm').val(response.usuario.nombre);
+                    $('#EditUserModal').modal('hide');
+                }
             });
 
         }

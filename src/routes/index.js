@@ -9,6 +9,7 @@
 const express = require('express');
 const router =  express.Router();
 const passport = require('passport');
+const userModel = require('../models/user');
 
 router.get('/',(req, res, next) => {
     res.render('signin');
@@ -35,8 +36,11 @@ router.post('/signin', passport.authenticate('local-signin', {
     passReqToCallback : true,
 }));
 
-router.get('/profile', isAuthenticated ,(req, res, next) => {
-    res.render('profile');
+router.get('/profile', isAuthenticated , async (req, res, next) => {
+    let userLogged = await userModel.findById(req.user._id, '-password');
+    res.render('profile',{
+        userLogged
+    });
 });
 
 router.get('/app', isAuthenticated ,(req, res, next) => {

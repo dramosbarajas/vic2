@@ -8,8 +8,8 @@
 
 const express = require('express');
 const router =  express.Router();
-
-
+const User = require('../models/user');
+const helper = require('../helpers/helpers');
 //Ruta para actualizar los datos del usuario
 
 /*app.use(function(req, res, next) {
@@ -18,13 +18,23 @@ const router =  express.Router();
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     next();
 });*/
-router.put('/profile/editProfile', isAuthenticated , (req, res, next )=>{
-    console.log(req.body);
-    //TODO Logica para la actualización.
-    res.json({
-        status:200,
-        msj:"Elemento modificado",
-    })
+router.put('/profile/editProfile', isAuthenticated ,async (req, res, next )=>{
+    await User.findByIdAndUpdate(req.body.id, { nombre: req.body.nombre , apellido: req.body.apellido }, {new:true} ,(err, usuario) => {
+        if(err || !usuario){
+            return res.json({
+                status : 501,
+                msj : "Se ha producido un error al procesar su solicitud."
+            })
+        }
+        if(usuario){
+            return res.json({
+                status:200,
+                msj:"Perfil modificado correctamente.",
+                usuario : helper.editObject(usuario),
+            })
+        }
+    });
+
 });
 
 function isAuthenticated(req, res, next ){

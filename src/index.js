@@ -13,7 +13,7 @@ const logger = require('morgan');
 const passport = require('passport');
 const session = require('express-session');
 const flash = require ('connect-flash');
-
+const helper = require('./helpers/helpers');
 
 //Inicializamos
 const app = express();
@@ -43,7 +43,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use((req,res,next) => {
     app.locals.signupMessage = req.flash('signupMessage');
     app.locals.signinMessage = req.flash('signinMessage');
-    app.locals.user = req.user;
+    app.locals.user = helper.editObject(req.user);
     next();
 });
 
