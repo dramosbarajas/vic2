@@ -37,6 +37,12 @@ router.put('/profile/editProfile', isAuthenticated ,async (req, res, next )=>{
 
 });
 
+//Ruta para el cambio de contraseña
+router.get('/changePass', isAuthenticated, (req , res, next) =>{
+    res.render('access.ejs');
+});
+
+
 function isAuthenticated(req, res, next ){
     if(req.isAuthenticated()){
         return next();

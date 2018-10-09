@@ -1,5 +1,19 @@
 $(document).ready(function (){
 
+    //Config de toastr
+    toastr.options = {
+        "positionClass": "toast-top-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "3000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    };
 
 //Click
     $('#submitFormSignIn').on('click', (e)=>{
@@ -34,9 +48,9 @@ $(document).ready(function (){
 
             $.ajax(settings).done(function (response) {
                 if(response.status = 200){
-                    console.log(response.usuario.nombre);
                     $('#apellidoViewUserForm').val(response.usuario.apellido);
                     $('#nombreViewUserForm').val(response.usuario.nombre);
+                    toastr["success"]("Modificación guardada correctamente.");
                     $('#EditUserModal').modal('hide');
                 }
             });

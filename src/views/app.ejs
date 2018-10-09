@@ -1,5 +1,12 @@
 <%- layout ('layout/main') %>
-<div class="container">
+<div class="container mt-3 borderError">
+    <% if (user.passChanged === false) { %>
+    <div class="row">
+        <div class="col-sm-8 offset-sm-2">
+            <h5>Parece que es la primera vez que accede al sistema, pulse <a href="/changePass">aquí</a> para cambiar su contraseña.</h5>
+        </div>
+    </div>
+    <% } %>
     <div class="row">
         <div class="col-sm-6">
             <div class="card">
@@ -8,7 +15,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Card title</h5>
                         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                        <a href="#" class="btn btn-primary">Test</a>
                     </div>
                 </div>
             </div>

@@ -37,6 +37,7 @@ router.post('/signin', passport.authenticate('local-signin', {
 }));
 
 router.get('/profile', isAuthenticated , async (req, res, next) => {
+    console.log(req.user);
     let userLogged = await userModel.findById(req.user._id, '-password');
     res.render('profile',{
         userLogged

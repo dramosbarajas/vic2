@@ -43,5 +43,9 @@ passport.use('local-signin', new localStrategy({
         return  done(null, null, req.flash('signinMessage', 'Error en la autenticación'));
     }
 
+    if(user.active === false){
+        return  done(null, null, req.flash('signinMessage', 'Usuario Inactivo'));
+    }
+
     done(null, user);
 }));
