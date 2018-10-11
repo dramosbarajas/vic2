@@ -41,7 +41,10 @@ router.put('/profile/editProfile', isAuthenticated ,async (req, res, next )=>{
 router.get('/changePass', isAuthenticated, (req , res, next) =>{
     res.render('access.ejs');
 });
-
+//TODO mover este metodo a otro controlador y la funcion de autenticacion implementarla dentro de un middleware para no repetir codigo
+router.put('/changePass', isAuthenticated, (req , res, next) =>{
+    console.log(req.body);
+});
 
 function isAuthenticated(req, res, next ){
     if(req.isAuthenticated()){

@@ -2,6 +2,8 @@
  let errorsMessage = {
      'fieldRequired': 'El campo es requerido',
      'invalidEmail': 'Introducir un email válido',
+     'comparePass' : 'Las contraseñas no coinciden',
+     'lengthPass'  : 'Contraseña demasiado debil',
  }
 
  //Add error
@@ -21,7 +23,7 @@
 
  function correctField(elemento) {
      $(`#${elemento}`).addClass('is-valid');
- };
+ }
 
  //isEmpty
  function isEmpty(elemento) {
@@ -36,7 +38,7 @@
      };
      correctField(elemento);
      return false;
- };
+ }
 
  //isValidEmail
  function isValidEmail(elemento) {
@@ -55,4 +57,40 @@
      }
      correctField(elemento);
      return true;
+ }
+
+ function isLength(elemento, lon) {
+     removeErrors(elemento);
+     if($(`#${elemento}`).val().length >= lon){
+         correctField(elemento);
+         return true;
+     } else {
+         addErrors(elemento, errorsMessage.lengthPass);
+     }
+ }
+
+ //isEmpty
+ //todo Hay que mejorar este churricodigo
+ function isPasswordCorrect(elemento1,elemento2) {
+     let lon = 8;
+     //Buscar el valor del elemento
+     removeErrors(elemento1);
+     removeErrors(elemento2);
+
+     if (!isEmpty(elemento1) && !isEmpty(elemento2)) {
+         // TIENE CONTENIDO
+            if(isLength(elemento1, lon) && isLength(elemento2, lon)){
+                if($(`#${elemento1}`).val() ===  $(`#${elemento2}`).val()){
+                    return false;
+                } else {
+                    addErrors(elemento2, errorsMessage.comparePass);
+                }
+
+            } else {
+                return true;
+            }
+
+     } else {
+         return true;
+     };
  }

@@ -15,7 +15,7 @@ $(document).ready(function (){
         "hideMethod": "fadeOut"
     };
 
-//Click
+//Click login
     $('#submitFormSignIn').on('click', (e)=>{
         e.preventDefault();
         isValidEmail('emailFieldSignIn');
@@ -24,6 +24,7 @@ $(document).ready(function (){
            $('#formSignIn').submit();
         }
     });
+    //Click editar los datos del usuario.
     $('#eventEditModalForm').on('click', (e) => {
         isEmpty('nombreEditUserForm');
         isEmpty('apellidoEditUserForm');
@@ -52,6 +53,36 @@ $(document).ready(function (){
                     $('#nombreViewUserForm').val(response.usuario.nombre);
                     toastr["success"]("Modificación guardada correctamente.");
                     $('#EditUserModal').modal('hide');
+                }
+            });
+
+        }
+    })
+    //Cambio de contraseña
+    $('#passChangeButton').on('click', (e) => {
+        isPasswordCorrect('passChangedForm','confirmPassChangedForm');
+        if(!$('#passChangedForm').hasClass('is-invalid') && !$('#confirmPassChangedForm').hasClass('is-invalid')){
+            //Peticion Ajax para actualizar los datos.
+            var settings = {
+                "async": true,
+                "crossdomain": true,
+                "url": "/changePass",
+                'withcredentials':true,
+                "method": "PUT",
+                "headers": {
+                    "content-type": "application/x-www-form-urlencoded",
+                    "cache-control": "no-cache",
+                },
+                "data": {
+                    id : $( '#passChangeButton' ).data( 'userid'),
+                    pass : $('#confirmPassChangedForm').val(),
+                }
+            };
+
+            $.ajax(settings).done(function (response) {
+                if(response.status = 200){
+                    toastr["success"]("modificación guardada correctamente.");
+                    console.log(response);
                 }
             });
 
