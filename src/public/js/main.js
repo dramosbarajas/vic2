@@ -80,9 +80,9 @@ $(document).ready(function (){
             };
 
             $.ajax(settings).done(function (response) {
-                if(response.status = 200){
-                    toastr["success"]("modificación guardada correctamente.");
-                    console.log(response);
+                if(response.status = 200 ){
+                    window.location.href = "/app";
+                    toastr["success"]("Contraseña actualizada correctamente.");
                 }
             });
 

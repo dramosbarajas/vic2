@@ -84,6 +84,7 @@
                     return false;
                 } else {
                     addErrors(elemento2, errorsMessage.comparePass);
+                    return true;
                 }
 
             } else {

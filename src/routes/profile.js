@@ -41,10 +41,25 @@ router.put('/profile/editProfile', isAuthenticated ,async (req, res, next )=>{
 router.get('/changePass', isAuthenticated, (req , res, next) =>{
     res.render('access.ejs');
 });
-//TODO mover este metodo a otro controlador y la funcion de autenticacion implementarla dentro de un middleware para no repetir codigo
-router.put('/changePass', isAuthenticated, (req , res, next) =>{
-    console.log(req.body);
+router.put('/changePass', isAuthenticated, async (req , res, next) =>{
+    let flagPass = true;
+    let password = User.changePassword(req.body.pass);
+    await User.findByIdAndUpdate(req.body.id,{password : password, passChanged : flagPass},(err,usuario) => {
+        if(err) {
+            res.json({
+                status: 'Error',
+                msj: "Algo ha fallado",
+            });
+        }
+        if(usuario){
+            res.json({
+                status: 'Ok',
+                msj:"Contraseña modificada",
+            })
+        }
+    })
 });
+//TODO mover este metodo a otro controlador y la funcion de autenticacion implementarla dentro de un middleware para no repetir codigo
 
 function isAuthenticated(req, res, next ){
     if(req.isAuthenticated()){
