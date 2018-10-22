@@ -1,0 +1,54 @@
+<%- layout ('layout/main') %>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <h5 class="card-header">Nuevo ticket</h5>
+                <div class="card-body">
+                    <p class="card-text">Introduzca un nombre al ticket y presione el botón crear.</p>
+                    <div class="row">
+                        <div class="col-md-8 offset-md-2">
+                            <div class="form-group">
+                                <label for="titleNewTicket"> Nombre del ticket</label>
+                                <input type="text" name="titleNewTicket" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 offset-md-4">
+                            <a href="#" class="btn btn-info btn-block text-center">Crear</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="tickets row mt-4">
+    <% if ( tickets.length > 0  ) { %>
+        <% tickets.forEach(function(ticket){%>
+        <div class="col-md-12 mt-2">
+            <div class="card">
+                <h5 class="card-header text-center"><%= ticket.descripcion%></h5>
+                <div class="card-body">
+                    <p class="card-text">Posible campo oculto con desplegable.</p>
+                    <% let date = new Date(ticket.fechaCreacion);
+                    let formatDate = date.getDate() + "/"
+                        formatDate += (date.getMonth() + 1) + "/"
+                        formatDate += date.getFullYear();
+                        %>
+                    <p><%= formatDate %></p>
+                    <p><%= ticket.active%></p>
+                </div>
+            </div>
+        </div>
+        <% }) %>
+    <% } else { %>
+            <div class="col-md-12 mt-2">
+                <div class="card">
+                    <h5 class="card-header text-center">No se han encontrado registros.</h5>
+
+                </div>
+            </div>
+        <% } %>
+    </div>
+</div>

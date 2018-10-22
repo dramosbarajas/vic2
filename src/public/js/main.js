@@ -81,8 +81,10 @@ $(document).ready(function (){
 
             $.ajax(settings).done(function (response) {
                 if(response.status = 200 ){
-                    window.location.href = "/app";
                     toastr["success"]("Contraseña actualizada correctamente.");
+                    setTimeout(function () {
+                        window.location.href = "/app";
+                    },4000)
                 }
             });
 

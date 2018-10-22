@@ -50,6 +50,7 @@ app.use((req,res,next) => {
 //Routes
 app.use(require('./routes/index'));
 app.use(require('./routes/profile'));
+app.use(require('./routes/ticket'));
 
 //Starting the server
 app.listen(app.get('port'), () =>{
