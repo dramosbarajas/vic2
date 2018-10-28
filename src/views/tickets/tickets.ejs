@@ -10,13 +10,14 @@
                         <div class="col-md-8 offset-md-2">
                             <div class="form-group">
                                 <label for="titleNewTicket"> Nombre del ticket</label>
-                                <input type="text" name="titleNewTicket" class="form-control">
+                                <input type="text" id="titleNewTicket" class="form-control">
+                                <div id="titleNewTicketError"></div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-4 offset-md-4">
-                            <a href="#" class="btn btn-info btn-block text-center">Crear</a>
+                            <input type="button" id="addNewTicket" value="Crear" class="btn btn-info btn-block">
                         </div>
                     </div>
                 </div>
@@ -28,7 +29,13 @@
         <% tickets.forEach(function(ticket){%>
         <div class="col-md-12 mt-2">
             <div class="card">
-                <h5 class="card-header text-center"><%= ticket.descripcion%></h5>
+                <h5  data-ticketid=<%-ticket._id%> class= <%- (ticket.rol === "Cerrado") ? "'float-left card-header text-left cls'":"'float-left card-header text-left opn'" %>>
+                    <b><%= ticket.descripcion%></b>
+                    <% if (ticket.rol === "Cerrado") { %>
+                        <i title="Desactivar Ticket" data-ticketid="<%-ticket._id%>" class="deactivateTicket fas fa-2x fa-toggle-off float-right" style="color:red"></i></h5>
+                    <% } else { %>
+                        <i title="Activar Ticket" data-ticketid="<%-ticket._id%>"  class="activateTicket fas fa-2x fa-toggle-on float-right" style="color:green"></i></h5>
+                    <% } %>
                 <div class="card-body">
                     <p class="card-text">Posible campo oculto con desplegable.</p>
                     <% let date = new Date(ticket.fechaCreacion);
@@ -38,6 +45,7 @@
                         %>
                     <p><%= formatDate %></p>
                     <p><%= ticket.active%></p>
+                    <p>Estado del ticket: <%= ticket.rol%></p>
                 </div>
             </div>
         </div>
@@ -46,7 +54,6 @@
             <div class="col-md-12 mt-2">
                 <div class="card">
                     <h5 class="card-header text-center">No se han encontrado registros.</h5>
-
                 </div>
             </div>
         <% } %>

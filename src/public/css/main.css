@@ -8,3 +8,10 @@
 .borderError {
     border: 2px solid darkred;
 }
+
+.opn{
+    border-top: 10px solid green;
+}
+.cls{
+    border-top: 10px solid red;
+}

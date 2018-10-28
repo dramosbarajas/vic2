@@ -20,31 +20,50 @@ router.get('/tickets', async (req, res, next) => {
 });
 
 //Metodo para la creacion de un nuevo post.
-//TODO faltaria por comprobar las que esten activas y cerrarlas
 router.post('/ticket', async (req, res, next) => {
-    //Comprueba si existe algun ticket con estado abierto
-    let ticketsOpen = await Ticket.find({rol:"Abierto"});
-    Ticket.update({active:true},{active:false},{multi:true});
-    let newTicket = new Ticket();
-    newTicket.descripcion = "Yo soy el ultimo";
-    await newTicket.save((err, ticket) => {
-        if (err) {
+    await Ticket.update({},{rol:'Cerrado'},{multi:true}); //Cambia el rol del ticket para que solo haya uno abierto.
+    let ticketsOpen = await Ticket.find({rol:"Abierto"}); //Comprueba si hay algún ticket abierto
+    if(ticketsOpen.length === 0){
+        let newTicket = new Ticket();
+        newTicket.descripcion = req.body.descripcion;
+        await newTicket.save (async (err, ticket) => {
+
+            if (err) {
+                res.json({
+                    ok:false,
+                    msj: "Algo ha fallado",
+                })
+            }
+            if(ticket){
+                let tickets =  await Ticket.find().sort({fechaCreacion:-1});
+                res.json({
+                    ok:true,
+                    ticket,
+                    tickets
+                })
+            }
+        });
+    }
+
+});
+
+router.put('/ticket', async (req, res, next) => {
+    await Ticket.update({},{rol:'Cerrado'},{multi:true}); //Cierra todos los tickets que haya
+    await Ticket.findByIdAndUpdate({_id:req.body.id},{rol:"Abierto"}, async (err, ticket) => {
+        if(err){
             res.json({
                 ok:false,
                 msj: "Algo ha fallado",
             })
         }
         if(ticket){
+            let tickets =  await Ticket.find().sort({fechaCreacion:-1});
             res.json({
                 ok:true,
-                ticket
+                tickets
             })
         }
-    });
-});
-
-router.put('/ticket', (req, res, next) => {
-    res.send("Actualizar tickets")
+    })
 });
 
 router.delete('/ticket', (req, res, next) => {
